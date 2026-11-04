@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 public class NewArrayList<T> {
 	
+	private final int MODIFIER = 2;
+	
 	private T[] array;
 	private int size;
 	private int numElements;
@@ -30,11 +32,11 @@ public class NewArrayList<T> {
 	}
 	
 	public void add(int index, T t) {
-		if (index >= size) {
+		if (numElements + 1 >= size) {
 			expandSize();
 		}
 		for (int i = numElements; i > index; i--) {
-			array[i + 1] = array[i];
+			array[i] = array[i - 1];
 		}
 		array[index] = t;
 		numElements++;
@@ -46,19 +48,19 @@ public class NewArrayList<T> {
 			array[i + 1] = null;
 		}
 		numElements--;
-		if (numElements <= size / 2) {
+		if (numElements <= size / MODIFIER) {
 			shrinkSize();
 		}
 	}
 	
 	public void expandSize() {
-		array = Arrays.copyOf(array, size * 2);
-		size *= 2;
+		array = Arrays.copyOf(array, size * MODIFIER);
+		size *= MODIFIER;
 	}
 	
 	public void shrinkSize() {
-		array = Arrays.copyOf(array, size / 2);
-		size /= 2;
+		array = Arrays.copyOf(array, size / MODIFIER);
+		size /= MODIFIER;
 	}
 	
 	public String toString() {
