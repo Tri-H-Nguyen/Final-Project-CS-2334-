@@ -1,22 +1,69 @@
 package comparingListsPackage;
 
-public abstract class NewArrayList<T> {
+import java.util.Arrays;
+
+public class NewArrayList<T> {
+	
+	private final int MODIFIER = 2;
 	
 	private T[] array;
+	private int size;
+	private int numElements;
 	
+	@SuppressWarnings("unchecked")
 	public NewArrayList() {
-		
+		array = (T[]) new Object[10];
+		size = 10;
+		numElements = 0;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public NewArrayList(int size) {
-		
+		array = (T[]) new Object[size];
+		this.size = size;
 	}
 	
-	public abstract T get(int index);
+	public T get(int index) {
+		return array[index];
+	}
 	
-	public abstract void add(T t);
+	public void add(T t) {
+		add(numElements, t);
+	}
 	
-	public abstract void add(int index, T t);
+	public void add(int index, T t) {
+		if (numElements + 1 >= size) {
+			expandSize();
+		}
+		for (int i = numElements; i > index; i--) {
+			array[i] = array[i - 1];
+		}
+		array[index] = t;
+		numElements++;
+	}
 	
-	public abstract void remove(int index);
+	public void remove(int index) {
+		for (int i = index; i < numElements - 1; i++) {
+			array[i] = array[i + 1];
+			array[i + 1] = null;
+		}
+		numElements--;
+		if (numElements <= size / MODIFIER) {
+			shrinkSize();
+		}
+	}
+	
+	public void expandSize() {
+		array = Arrays.copyOf(array, size * MODIFIER);
+		size *= MODIFIER;
+	}
+	
+	public void shrinkSize() {
+		array = Arrays.copyOf(array, size / MODIFIER);
+		size /= MODIFIER;
+	}
+	
+	public String toString() {
+		return Arrays.toString(Arrays.copyOf(array, numElements));
+	}
 }
