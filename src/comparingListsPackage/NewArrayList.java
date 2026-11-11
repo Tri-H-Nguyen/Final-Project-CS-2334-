@@ -10,6 +10,7 @@ public class NewArrayList<T> {
 	private int size;
 	private int numElements;
 	
+	//NewArrayList Constructor for default
 	@SuppressWarnings("unchecked")
 	public NewArrayList() {
 		array = (T[]) new Object[10];
@@ -17,6 +18,10 @@ public class NewArrayList<T> {
 		numElements = 0;
 	}
 	
+	/**
+	 * Constructor for a parameter of int.
+	 * @param size
+	 */
 	@SuppressWarnings("unchecked")
 	public NewArrayList(int size) {
 		array = (T[]) new Object[size];
@@ -31,6 +36,12 @@ public class NewArrayList<T> {
 		add(numElements, t);
 	}
 	
+	/**
+	 * Adds data at a specific index in the New Array List.
+	 * Needs to optimize and add exception for out of bounds errors.
+	 * @param index
+	 * @param t
+	 */
 	public void add(int index, T t) {
 		if (numElements + 1 >= size) {
 			expandSize();

@@ -124,6 +124,16 @@ public class ComparisonTests {
 		}
 		System.out.println("Recreated ArrayList: " + average(trialData) + " nanoseconds");
 		
+		//Recreated LinkedList
+		trialData = new int[numOfTrials];
+		for (int i = 0; i < numOfTrials; i++) {
+			start = System.nanoTime();
+			d.remove(index);
+			end = System.nanoTime();
+			trialData[i] = (int) (end - start);
+		}
+		System.out.println("Recreated LinkedList: " + average(trialData) + " nanoseconds");
+		
 		
 		
 		System.out.println();
@@ -144,12 +154,12 @@ public class ComparisonTests {
 		initalizeArrays(0);
 		addIntegers(0,BASE_TEST_SIZE, TRIAL_SIZE);
 		addIntegers(BASE_TEST_SIZE / 2, BASE_TEST_SIZE, TRIAL_SIZE);
-		//remove(0,TRIAL_SIZE);
-		//remove((int) (Math.random() * (BASE_TEST_SIZE - (TRIAL_SIZE / BASE_TEST_SIZE))/5), TRIAL_SIZE);
-		//remove((int) (Math.random() * (BASE_TEST_SIZE - (TRIAL_SIZE / BASE_TEST_SIZE))/5) + (BASE_TEST_SIZE / 5), TRIAL_SIZE);
-		//remove((int) (Math.random() * (BASE_TEST_SIZE - (TRIAL_SIZE / BASE_TEST_SIZE))/5) + ((BASE_TEST_SIZE * 2) / 5), TRIAL_SIZE);
-		//remove((int) (Math.random() * (BASE_TEST_SIZE - (TRIAL_SIZE / BASE_TEST_SIZE))/5) + ((BASE_TEST_SIZE * 3) / 5), TRIAL_SIZE);
-		//remove((int) (Math.random() * (BASE_TEST_SIZE - (TRIAL_SIZE / BASE_TEST_SIZE))/5) + ((BASE_TEST_SIZE * 4) / 5), TRIAL_SIZE);
+		remove(0,TRIAL_SIZE);
+		remove((int) (Math.random() * (BASE_TEST_SIZE - (TRIAL_SIZE / BASE_TEST_SIZE))/5), TRIAL_SIZE);
+		remove((int) (Math.random() * (BASE_TEST_SIZE - (TRIAL_SIZE / BASE_TEST_SIZE))/5) + (BASE_TEST_SIZE / 5), TRIAL_SIZE);
+		remove((int) (Math.random() * (BASE_TEST_SIZE - (TRIAL_SIZE / BASE_TEST_SIZE))/5) + ((BASE_TEST_SIZE * 2) / 5), TRIAL_SIZE);
+		remove((int) (Math.random() * (BASE_TEST_SIZE - (TRIAL_SIZE / BASE_TEST_SIZE))/5) + ((BASE_TEST_SIZE * 3) / 5), TRIAL_SIZE);
+		remove((int) (Math.random() * (BASE_TEST_SIZE - (TRIAL_SIZE / BASE_TEST_SIZE))/5) + ((BASE_TEST_SIZE * 4) / 5), TRIAL_SIZE);
 
 	}
 	

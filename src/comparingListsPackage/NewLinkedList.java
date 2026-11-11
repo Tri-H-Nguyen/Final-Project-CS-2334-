@@ -18,7 +18,7 @@ public class NewLinkedList<T> {
 		add(size, t);
 	}
 	
-
+	//Have code check index for exception
 	public void add(int index, T t) {
 		NewNode<T> temp = nodeHead;
 		if (size == 0) {
@@ -45,7 +45,16 @@ public class NewLinkedList<T> {
 	}
 	
 	public void remove(int index) {
-		
+		NewNode<T> temp = nodeHead;
+		if (index == 0) {
+			nodeHead = nodeHead.getNextNode();
+		} else {
+			for(int i = 1; i < index - 1; i++) {
+				temp = nodeHead.getNextNode();
+			}
+			temp.setNextNode(temp.getNextNode().getNextNode());
+		}
+		size--;
 	}
 	
 	public String toString() {
