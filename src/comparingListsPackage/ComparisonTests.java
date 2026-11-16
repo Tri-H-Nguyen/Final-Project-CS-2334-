@@ -6,7 +6,7 @@ import java.util.LinkedList;
 public class ComparisonTests {
 	
 	private static final int TRIAL_SIZE = 20;
-	private static final int BASE_TEST_SIZE = 1000;
+	private static final int BASE_TEST_SIZE = 10000;
 	
 	private static long start;
 	private static long end;

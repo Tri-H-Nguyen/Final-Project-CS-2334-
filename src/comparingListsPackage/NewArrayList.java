@@ -65,13 +65,16 @@ public class NewArrayList<T> {
 	}
 	
 	public void expandSize() {
-		array = Arrays.copyOf(array, size * MODIFIER);
-		size *= MODIFIER;
+		array = Arrays.copyOf(array, (size *= MODIFIER));
 	}
 	
 	public void shrinkSize() {
 		array = Arrays.copyOf(array, size / MODIFIER);
 		size /= MODIFIER;
+	}
+	
+	public int size() {
+		return numElements;
 	}
 	
 	public String toString() {
