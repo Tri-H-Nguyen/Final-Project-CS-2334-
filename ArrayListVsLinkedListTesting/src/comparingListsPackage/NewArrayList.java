@@ -1,0 +1,89 @@
+package comparingListsPackage;
+
+import java.util.Arrays;
+
+public class NewArrayList<T> implements NewList<T>{
+	
+	private final int MODIFIER = 2;
+	
+	private T[] array;
+	private int size;
+	private int numElements;
+	
+	//NewArrayList Constructor for default
+	@SuppressWarnings("unchecked")
+	public NewArrayList() {
+		array = (T[]) new Object[10];
+		size = 10;
+		numElements = 0;
+	}
+	
+	/**
+	 * Constructor for a parameter of int.
+	 * @param size
+	 */
+	@SuppressWarnings("unchecked")
+	public NewArrayList(int size) {
+		array = (T[]) new Object[size];
+		this.size = size;
+	}
+	
+	public T get(int index) {
+		return array[index];
+	}
+	
+	public void add(T t) {
+		add(numElements, t);
+	}
+	
+	/**
+	 * Adds data at a specific index in the New Array List.
+	 * Needs to optimize and add exception for out of bounds errors.
+	 * @param index
+	 * @param t
+	 */
+	public void add(int index, T t) {
+		if (numElements + 1 >= size) {
+			expandSize();
+		}
+		for (int i = numElements; i > index; i--) {
+			array[i] = array[i - 1];
+		}
+		array[index] = t;
+		numElements++;
+	}
+	
+	public void remove(int index) {
+		for (int i = index; i < numElements - 1; i++) {
+			array[i] = array[i + 1];
+			array[i + 1] = null;
+		}
+		numElements--;
+		if (numElements <= size / MODIFIER) {
+			shrinkSize();
+		}
+	}
+	
+	public void expandSize() {
+		array = Arrays.copyOf(array, (size *= MODIFIER));
+	}
+	
+	public void shrinkSize() {
+		array = Arrays.copyOf(array, size / MODIFIER);
+		size /= MODIFIER;
+	}
+	
+	public void traverse() {
+		for (@SuppressWarnings("unused") T t : array) {
+			continue;
+		}
+	}
+	
+	public int size() {
+		return numElements;
+	}
+	
+	public String toString() {
+		return Arrays.toString(Arrays.copyOf(array, numElements));
+	}
+}

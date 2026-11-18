@@ -1,0 +1,79 @@
+package comparingListsPackage;
+
+public class NewLinkedList<T> implements NewList<T>{
+	
+	private NewNode<T> nodeHead;
+	private int size;
+	
+	public NewLinkedList() {
+		nodeHead = new NewNode<T>();
+		size = 0;
+	}
+
+	public T get(int index) {
+		NewNode<T> test = nodeHead;
+		for (int i = 0; i < index; i++) {
+			test = test.getNextNode();
+		}
+		return test.getData();
+	}
+	
+	public void add(T t) {
+		add(size, t);
+	}
+	
+	//Have code check index for exception
+	public void add(int index, T t) {
+		NewNode<T> temp = nodeHead;
+		if (size == 0) {
+			nodeHead.setData(t);
+		}
+		else if (index == 0) {
+			nodeHead = new NewNode<T>(t, temp);
+			size++;
+			return;
+		}
+		else {
+			for (int i = 0; i < index - 1; i++) {
+			temp = temp.getNextNode();
+			}
+			if (index == size) {
+				temp.addNewNode(t);
+			}
+			else {
+				temp.insertNode(t);
+			}
+		}
+		size++;
+		
+	}
+	
+	public void remove(int index) {
+		NewNode<T> temp = nodeHead;
+		if (index == 0) {
+			nodeHead = nodeHead.getNextNode();
+		} else {
+			for(int i = 1; i < index; i++) {
+				temp = temp.getNextNode();
+			}
+			temp.setNextNode(temp.getNextNode().getNextNode());
+		}
+		size--;
+	}
+	
+	public void traverse() {
+		NewNode<T> temp = nodeHead;
+		while(temp != null) {
+			temp = temp.getNextNode();
+		}
+	}
+	
+	public int size() {
+		return size;
+	}
+	
+	public String toString() {
+		return "[" + nodeHead.toString().substring(0, nodeHead.toString().length() - 5).replace(" ", ", ") + "]";
+	}
+}
+
