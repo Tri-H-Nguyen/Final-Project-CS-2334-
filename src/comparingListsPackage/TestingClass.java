@@ -3,36 +3,22 @@ package comparingListsPackage;
 import java.util.*;
 
 public class TestingClass {
-	public static final int TRIALS_NUM = 15;
+	public static final int TRIALS_NUM = 40;
 	public static boolean warmingUp = true;
-	/**
-	 * Warms up the java code before running the actual tests.
-	 * @param size
-	 */
-	public static void warmUp(int size) {
-		ArrayList<Integer> a = new ArrayList<>();
-		LinkedList<Integer> b = new LinkedList<>();
-		
-		addIntAtIndex(a, -1, size); addIntAtIndex(b, 0, size);
-		traverse(a, TRIALS_NUM); traverse(b, TRIALS_NUM);
-		addIntAtIndex(a, 0, TRIALS_NUM); addIntAtIndex(b, 0, TRIALS_NUM);
-		addIntAtIndex(a, -1, TRIALS_NUM); addIntAtIndex(b, -1, TRIALS_NUM);
-		removeAtIndex(a, 0, TRIALS_NUM); removeAtIndex(b, 0, TRIALS_NUM);
-		removeAtIndex(a, -1, TRIALS_NUM); removeAtIndex(b, -1, TRIALS_NUM);
-		randomGetterTest(a, b, size);
-		warmingUp = false;
-	}
+
 	/**
 	 * Tests ArrayList and LinkedList in a variety of tests.
 	 * @param size
 	 */
 	public static void javaListTesting(int size) {
-		//Initialize
+		//Integers
 		ArrayList<Integer> a = new ArrayList<>();
 		LinkedList<Integer> b = new LinkedList<>();
 		
 		//Initializing
-		System.out.println("Initializing Integer ArrayList and Linked List of size " + size + ": ");
+		if (!warmingUp) {
+			System.out.println("Initializing Integer ArrayList and Linked List of size " + size + ": ");
+		}
 		printResults("Initializing", addIntAtIndex(a, -1, size), addIntAtIndex(b, 0, size));
 		
 		//Traversal
@@ -58,8 +44,46 @@ public class TestingClass {
 		
 		//Random Getter Test for 100 random indexes
 		randomGetterTest(a, b, size);
+		
+		if (!warmingUp) {
+			System.out.println();
+		}
+		//Doubles
+		ArrayList<Double> c = new ArrayList<>();
+		LinkedList<Double> d = new LinkedList<>();
+		
+		//Initializing
+		if (!warmingUp) {
+			System.out.println("Initializing Doubles ArrayList and Linked List of size " + size + ": ");
+		}
+		printResults("Initializing", addDoubleAtIndex(c, -1, size), addDoubleAtIndex(d, 0, size));
+		
+		//Traversal
+		printResults("Traversal (" + size + ")", traverse(c, TRIALS_NUM), traverse(d, TRIALS_NUM));
+		
+		//Add at Index 0
+		printResults("Add at Index 0", addDoubleAtIndex(c, 0, TRIALS_NUM), addDoubleAtIndex(d, 0, TRIALS_NUM));
+		
+		//Add in Middle
+		printResults("Add in Middle", addDoubleAtIndex(c, c.size() / 2, TRIALS_NUM), addDoubleAtIndex(d, d.size() / 2, TRIALS_NUM));
+		
+		//Add at End
+		printResults("Add at End", addDoubleAtIndex(c, -1, TRIALS_NUM), addDoubleAtIndex(d, -1, TRIALS_NUM));
+		
+		//Remove at Index 0
+		printResults("Remove at Index 0", removeAtIndex(c, 0, TRIALS_NUM), removeAtIndex(d, 0, TRIALS_NUM));
+		
+		//Remove in Middle
+		printResults("Remove in Middle", removeAtIndex(c, c.size() / 2, TRIALS_NUM), removeAtIndex(d, d.size() / 2, TRIALS_NUM));
 
-		System.out.println();
+		//Remove at End
+		printResults("Remove at End", removeAtIndex(c, -1, TRIALS_NUM), removeAtIndex(d, -1, TRIALS_NUM));
+		
+		//Random Getter Test for 100 random indexes
+		randomGetterTest(c, d, size);
+		if (!warmingUp) {
+			System.out.println();
+		}
 	}
 	
 	/**
@@ -94,8 +118,32 @@ public class TestingClass {
 		return totalNS;
 	}
 	
+	public static long addDoubleAtIndex(List<Double> list, int index, int trials) {
+		long totalNS = 0;
+		long start;
+		if (index < 0) {
+			
+			for (int i = trials - 1; i >= 0; i--) {
+				start = System.nanoTime();
+				list.add(Math.random());
+				totalNS += System.nanoTime() - start;
+			}
+		} else {
+			for (int i = 0; i < trials; i++) {
+				start = System.nanoTime();
+				list.add(index, Math.random());
+				totalNS += System.nanoTime() - start;
+			}
+		}
+		//System.out.println(list);
+		if (trials == TRIALS_NUM) {
+			totalNS /= trials;
+		}
+		return totalNS;
+	}
+	
 	/**
-	 * Deletes 
+	 * Deletes value at the index in a list. Repeats for trials number of times.
 	 * @param index
 	 * @param trials
 	 * @return
@@ -200,15 +248,21 @@ public class TestingClass {
 	 */
 	private static void printResults(String testType, long arrayTime, long LinkedTime) {
 		if (!warmingUp) {
-        	System.out.printf("%30s | ArrayList: %8s ns | LinkedList: %8s ns%n", testType, arrayTime, LinkedTime);
+        	System.out.printf("%30s | Array: %8s ns | Linked: %8s ns%n", testType, arrayTime, LinkedTime);
     
 		}
 	}
 	
 	public static void main(String[] args) {
 		System.out.println("Comparing Java ArrayList and LinkedList");
-		warmUp(250000);
+		System.out.println("(Averages after " + TRIALS_NUM + " trials)");
+		//Warm Up Test
+		javaListTesting(100000);
+		javaListTesting(200000);
+		warmingUp = false;
 		//javaListTesting(10);
+		javaListTesting(10000);
+		javaListTesting(50000);
 		javaListTesting(100000);
 		javaListTesting(200000);
 		javaListTesting(300000);

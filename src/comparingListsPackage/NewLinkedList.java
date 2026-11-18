@@ -1,6 +1,6 @@
 package comparingListsPackage;
 
-public class NewLinkedList<T> {
+public class NewLinkedList<T> implements NewList<T>{
 	
 	private NewNode<T> nodeHead;
 	private int size;
@@ -11,7 +11,11 @@ public class NewLinkedList<T> {
 	}
 
 	public T get(int index) {
-		return null;
+		NewNode<T> test = nodeHead;
+		for (int i = 0; i < index; i++) {
+			test = test.getNextNode();
+		}
+		return test.getData();
 	}
 	
 	public void add(T t) {

@@ -2,7 +2,7 @@ package comparingListsPackage;
 
 import java.util.Arrays;
 
-public class NewArrayList<T> {
+public class NewArrayList<T> implements NewList<T>{
 	
 	private final int MODIFIER = 2;
 	
