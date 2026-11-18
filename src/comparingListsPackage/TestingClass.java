@@ -3,7 +3,8 @@ package comparingListsPackage;
 import java.util.*;
 
 public class TestingClass {
-	public static final int TRIALS_NUM = 40;
+	//TRIALS_NUM - How many times to repeat each experiment
+	public static final int TRIALS_NUM = 20;
 	public static boolean warmingUp = true;
 
 	/**
@@ -87,7 +88,7 @@ public class TestingClass {
 	}
 	
 	/**
-	 * Adds 'trials' amount of integers to 'list' at the index 'index'.
+	 * Adds 'trials' amount of Integers to 'list' at the index 'index'.
 	 * If 'index' is a negative number, add 'trials' amount of integers to the end of 'list'.
 	 * @param list
 	 * @param index
@@ -118,6 +119,14 @@ public class TestingClass {
 		return totalNS;
 	}
 	
+	/**
+	 * Adds 'trials' amount of Doubles to 'list' at the index 'index'.
+	 * If 'index' is a negative number, add 'trials' amount of integers to the end of 'list'.
+	 * @param list
+	 * @param index
+	 * @param trials
+	 * @return
+	 */
 	public static long addDoubleAtIndex(List<Double> list, int index, int trials) {
 		long totalNS = 0;
 		long start;
@@ -208,6 +217,12 @@ public class TestingClass {
 		}
 	}
 	
+	/**
+	 * Creates a set of random numbers sorted from least to greatest.
+	 * @param size
+	 * @param mult
+	 * @return
+	 */
 	public static TreeSet<Integer> fetchRandomNumSet(int size,int mult) {
 		TreeSet<Integer> rng = new TreeSet<>();
 

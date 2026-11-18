@@ -53,12 +53,23 @@ public class NewLinkedList<T> implements NewList<T>{
 		if (index == 0) {
 			nodeHead = nodeHead.getNextNode();
 		} else {
-			for(int i = 1; i < index - 1; i++) {
-				temp = nodeHead.getNextNode();
+			for(int i = 1; i < index; i++) {
+				temp = temp.getNextNode();
 			}
 			temp.setNextNode(temp.getNextNode().getNextNode());
 		}
 		size--;
+	}
+	
+	public void traverse() {
+		NewNode<T> temp = nodeHead;
+		while(temp != null) {
+			temp = temp.getNextNode();
+		}
+	}
+	
+	public int size() {
+		return size;
 	}
 	
 	public String toString() {

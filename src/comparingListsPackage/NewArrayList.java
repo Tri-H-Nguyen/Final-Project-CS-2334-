@@ -73,6 +73,12 @@ public class NewArrayList<T> implements NewList<T>{
 		size /= MODIFIER;
 	}
 	
+	public void traverse() {
+		for (@SuppressWarnings("unused") T t : array) {
+			continue;
+		}
+	}
+	
 	public int size() {
 		return numElements;
 	}

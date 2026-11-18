@@ -10,5 +10,9 @@ public interface NewList<T> {
 	
 	public abstract void remove(int index);
 	
+	public abstract void traverse();
+	
+	public abstract int size();
+	
 	
 }
